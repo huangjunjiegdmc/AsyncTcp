@@ -70,13 +70,7 @@ namespace AsyncTcpServer
         /// <summary>
         /// 本地客户端终结点
         /// </summary>
-        public IPEndPoint LocalIPEndPoint
-        {
-            get
-            {
-                return m_tcpClient.Client.LocalEndPoint as IPEndPoint;
-            }
-        }
+        public IPEndPoint LocalIPEndPoint { get; private set; }
 
         #endregion
 
@@ -172,6 +166,7 @@ namespace AsyncTcpServer
             {
                 m_tcpClient.EndConnect(ar);
 
+                LocalIPEndPoint = m_tcpClient.Client.LocalEndPoint as IPEndPoint;
                 OnServerConnected();
 
                 byte[] buffer = new byte[BUFFER_SIZE];
