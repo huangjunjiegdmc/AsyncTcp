@@ -334,7 +334,7 @@ namespace AsyncTcpServer
                     byteReceived = null;
 
                     //如果有异常，可能是接收的数据不符合通信协议，记录日志
-                    Log("Received data: " + System.Text.Encoding.UTF8.GetString(receivedBytes));
+                    Log("Received data: " + System.Text.Encoding.Default.GetString(receivedBytes));
                     Log(ex.Message, ex);
                 }
 
