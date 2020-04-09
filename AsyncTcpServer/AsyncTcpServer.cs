@@ -230,8 +230,8 @@ namespace AsyncTcpServer
                         Server = this
                     };
 
-                    Log("New client connected:" + serverSession.IpEndPoint.Address.ToString()
-                        + ":" + serverSession.IpEndPoint.Port);
+                    //Log("New client connected:" + serverSession.IpEndPoint.Address.ToString()
+                    //    + ":" + serverSession.IpEndPoint.Port);
 
                     lock (m_sessionList)
                     {
