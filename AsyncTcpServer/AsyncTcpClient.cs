@@ -40,7 +40,7 @@ namespace AsyncTcpServer
         /// <summary>
         /// 日志接口
         /// </summary>
-        public ILogger Logger { get; set; }
+        public ILogger Logger { get; private set; }
 
         /// <summary>
         /// 数据接收过滤器
@@ -50,7 +50,7 @@ namespace AsyncTcpServer
         /// <summary>
         /// 通信使用的字符编码
         /// </summary>
-        public Encoding Encoding { get; set; }
+        public Encoding Encoding { get; private set; }
 
         /// <summary>
         /// 是否启用KeepAlive
@@ -78,10 +78,14 @@ namespace AsyncTcpServer
         #region 函数
 
         /// <summary>
-        /// 异步TCP客户端
+        /// 构造函数，指定IPEndPoint、通信协议
         /// </summary>
-        /// <param name="remoteEP"></param>
-        public AsyncTcpClient(IPEndPoint remoteEP, IReceiveDataFilter receiveDataFilter, Encoding encoding)
+        /// <param name="remoteEP">服务器地址和端口</param>
+        /// <param name="receiveDataFilter">通信协议</param>
+        /// <param name="encoding">字符编码</param>
+        /// <param name="logger">日志接口</param>
+        public AsyncTcpClient(IPEndPoint remoteEP, IReceiveDataFilter receiveDataFilter,
+            Encoding encoding = null, ILogger logger = null)
         {
             RemoteIPEndPoint = remoteEP;
 
@@ -89,12 +93,31 @@ namespace AsyncTcpServer
             m_tcpClient.SendBufferSize = BUFFER_SIZE;
             m_tcpClient.ReceiveBufferSize = BUFFER_SIZE;
 
-            Encoding = encoding;
             ReceiveDataFilter = receiveDataFilter;
-            ReceiveDataFilter.Encoding = encoding;
+            if (encoding == null)
+            {
+                Encoding = System.Text.Encoding.UTF8;
+                ReceiveDataFilter.Encoding = System.Text.Encoding.UTF8;
+            }
+            else
+            {
+                Encoding = encoding;
+                ReceiveDataFilter.Encoding = encoding;
+            }
+            Logger = logger;
+            ReceiveDataFilter.Logger = logger;
         }
 
-        public AsyncTcpClient(string ip, int port, IReceiveDataFilter receiveDataFilter, Encoding encoding)
+        /// <summary>
+        /// 构造函数，指定地址、端口、通信协议
+        /// </summary>
+        /// <param name="ip">服务器地址</param>
+        /// <param name="port">服务器端口</param>
+        /// <param name="receiveDataFilter">通信协议</param>
+        /// <param name="encoding">字符编码</param>
+        /// <param name="logger">日志接口</param>
+        public AsyncTcpClient(string ip, int port, IReceiveDataFilter receiveDataFilter,
+            Encoding encoding = null, ILogger logger = null)
         {
             RemoteIPEndPoint = new IPEndPoint(IPAddress.Parse(ip), port);
 
@@ -102,9 +125,19 @@ namespace AsyncTcpServer
             m_tcpClient.SendBufferSize = BUFFER_SIZE;
             m_tcpClient.ReceiveBufferSize = BUFFER_SIZE;
 
-            Encoding = encoding;
             ReceiveDataFilter = receiveDataFilter;
-            ReceiveDataFilter.Encoding = encoding;
+            if (encoding == null)
+            {
+                Encoding = System.Text.Encoding.UTF8;
+                ReceiveDataFilter.Encoding = System.Text.Encoding.UTF8;
+            }
+            else
+            {
+                Encoding = encoding;
+                ReceiveDataFilter.Encoding = encoding;
+            }
+            Logger = logger;
+            ReceiveDataFilter.Logger = logger;
         }
 
         /// <summary>
@@ -300,6 +333,8 @@ namespace AsyncTcpServer
                     rest = 0;
                     byteReceived = null;
 
+                    //如果有异常，可能是接收的数据不符合通信协议，记录日志
+                    Log("Received data: " + System.Text.Encoding.UTF8.GetString(receivedBytes));
                     Log(ex.Message, ex);
                 }
 
@@ -332,8 +367,6 @@ namespace AsyncTcpServer
             }
             catch (Exception ex)
             {
-                //如果有异常，可能是接收的数据不符合通信协议，记录日志
-                Log("Received data: " + System.Text.Encoding.UTF8.GetString(receivedBytes));
                 Log(ex.Message, ex);
             }
         }

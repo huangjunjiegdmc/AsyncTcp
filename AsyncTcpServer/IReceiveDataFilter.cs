@@ -48,5 +48,10 @@ namespace AsyncTcpServer
         /// 通信使用的字符编码
         /// </summary>
         Encoding Encoding { get; set; }
+
+        /// <summary>
+        /// 日志接口
+        /// </summary>
+        ILogger Logger { get; set; }
     }
 }

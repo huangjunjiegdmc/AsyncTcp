@@ -35,8 +35,8 @@ namespace AsyncTcpClientTest
             MyLogger myLogger = new MyLogger();
             BeginEndFilter receiveDataFilter = new BeginEndFilter();
             asyncTcpClient = new AsyncTcpClient(
-                new System.Net.IPEndPoint(System.Net.IPAddress.Parse("127.0.0.1"), 4000), receiveDataFilter, Encoding.UTF8);
-            asyncTcpClient.Logger = myLogger;
+                new System.Net.IPEndPoint(System.Net.IPAddress.Parse("127.0.0.1"), 4000), receiveDataFilter,
+                Encoding.UTF8, myLogger);
             asyncTcpClient.EnableKeepAlive = true;
             asyncTcpClient.ServerConnected += AsyncTcpClient_ServerConnected;
             asyncTcpClient.ServerDisconnected += AsyncTcpClient_ServerDisconnected;

@@ -42,6 +42,11 @@ namespace AsyncTcpServer
         public Encoding Encoding { get; set; }
 
         /// <summary>
+        /// 日志接口
+        /// </summary>
+        public ILogger Logger { get; set; }
+
+        /// <summary>
         /// 重置过滤器
         /// </summary>
         public void Reset()
@@ -119,6 +124,10 @@ namespace AsyncTcpServer
                 {
                     rest = 0;
                     Reset();
+
+                    //如果有异常，可能是接收的数据不符合通信协议，记录日志
+                    Log("Received data: " + System.Text.Encoding.UTF8.GetString(readBuffer.ToArray()));
+
                     return null;
                 }
             }
@@ -233,6 +242,26 @@ namespace AsyncTcpServer
             }
 
             return endIndex;
+        }
+
+        /// <summary>
+        /// 记录日志
+        /// </summary>
+        /// <param name="message">日志消息</param>
+        protected void Log(object message, Exception ex = null)
+        {
+            if (Logger != null)
+            {
+                if (ex != null)
+                {
+                    Logger.Log(message, ex);
+                    Logger.Log(ex.StackTrace, ex);
+                }
+                else
+                {
+                    Logger.Log(message);
+                }
+            }
         }
     }
 }

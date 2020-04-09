@@ -34,8 +34,7 @@ namespace AsyncTcpServerTest
         {
             MyLogger myLogger = new MyLogger();
             BeginEndFilter receiveDataFilter = new BeginEndFilter();
-            myTcpServer = new MyTcpServer(4000, receiveDataFilter, Encoding.UTF8);
-            myTcpServer.Logger = myLogger;
+            myTcpServer = new MyTcpServer(4000, receiveDataFilter, Encoding.UTF8, myLogger);
             myTcpServer.EnableKeepAlive = true;
             myTcpServer.NewSessionConnected += MyTcpServer_NewSessionConnected;
             myTcpServer.SessionClosed += MyTcpServer_SessionClosed;

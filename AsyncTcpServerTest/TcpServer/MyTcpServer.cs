@@ -10,13 +10,15 @@ namespace AsyncTcpServerTest.TcpServer
 {
     public class MyTcpServer : AsyncTcpServer<MyServerSession>
     {
-        public MyTcpServer(IPAddress ipAddress, int port, IReceiveDataFilter receiveDataFilter, Encoding encoding)
-              : base(ipAddress, port, receiveDataFilter, encoding)
+        public MyTcpServer(IPAddress ipAddress, int port, IReceiveDataFilter receiveDataFilter,
+            Encoding encoding = null, ILogger logger = null)
+              : base(ipAddress, port, receiveDataFilter, encoding, logger)
         {
         }
 
-        public MyTcpServer(int port, IReceiveDataFilter receiveDataFilter, Encoding encoding) 
-            : base(port, receiveDataFilter, encoding)
+        public MyTcpServer(int port, IReceiveDataFilter receiveDataFilter,
+            Encoding encoding = null, ILogger logger = null) 
+            : base(port, receiveDataFilter, encoding, logger)
         {
         }
     }
