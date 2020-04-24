@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace AsyncTcpServer
+namespace AsyncTcp
 {
     /// <summary>
     /// 异步TCP客户端
@@ -181,6 +181,13 @@ namespace AsyncTcpServer
             try
             {
                 OnServerDisconnected();
+
+                try
+                {
+                    byte[] sendMessage = this.Encoding.GetBytes("bye");//通过bye命令正常关闭服务器流读取操作
+                    this.m_tcpClient.GetStream().Write(sendMessage, 0, sendMessage.Length);
+                }
+                catch { }
                 m_tcpClient.Close();
             }
             catch (Exception ex)
@@ -236,8 +243,24 @@ namespace AsyncTcpServer
                             OnServerDisconnected();
                             m_tcpClient.Close();
 
-                            Log("Read 0 byte! TcpClient close!");
+                            Log("Session close by server!");
                             return;
+                        }
+                        else if (length == 3)
+                        {
+                            byte[] bufferBye = (byte[])ar.AsyncState;
+                            byte[] receivedByeBytes = new byte[length];
+                            Array.ConstrainedCopy(bufferBye, 0, receivedByeBytes, 0, length);
+                            string byeMessage = this.Encoding.GetString(receivedByeBytes);
+                            if (byeMessage.ToLower().Equals("bye"))
+                            {
+                                //如果接收到bye字符则关闭连接
+                                OnServerDisconnected();
+                                m_tcpClient.Close();
+
+                                Log("Session close by server(bye)!");
+                                return;
+                            }
                         }
 
                         byte[] buffer = (byte[])ar.AsyncState;

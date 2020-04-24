@@ -6,7 +6,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AsyncTcpServer
+namespace AsyncTcp
 {
     /// <summary>
     /// 会话信息基类

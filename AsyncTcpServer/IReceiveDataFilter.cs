@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AsyncTcpServer
+namespace AsyncTcp
 {
     /// <summary>
     /// 数据接收过滤器接口

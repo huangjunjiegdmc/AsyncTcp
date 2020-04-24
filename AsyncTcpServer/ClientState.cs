@@ -5,7 +5,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AsyncTcpServer
+namespace AsyncTcp
 {
     /// <summary>
     /// 客户端数据接收状态

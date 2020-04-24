@@ -1,5 +1,5 @@
 ﻿using AsyncTcpClientTest.TcpServer;
-using AsyncTcpServer;
+using AsyncTcp;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

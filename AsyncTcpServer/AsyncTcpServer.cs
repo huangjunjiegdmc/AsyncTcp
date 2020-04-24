@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace AsyncTcpServer
+namespace AsyncTcp
 {
     /// <summary>
     /// 异步TCP服务器
@@ -220,6 +220,13 @@ namespace AsyncTcpServer
 
                     for (int i = 0; i < this.m_sessionList.Count; i++)
                     {
+                        try
+                        {
+                            byte[] sendMessage = this.Encoding.GetBytes("bye");//通过bye命令正常关闭客户端流读取操作
+                            this.m_sessionList[i].TcpClient.GetStream().Write(sendMessage, 0, sendMessage.Length);
+                        }
+                        catch { }
+
                         this.m_sessionList[i].TcpClient.Close();
                     }
 
@@ -311,9 +318,30 @@ namespace AsyncTcpServer
                             OnSessionClosed(session);
                             session.TcpClient.Close();
 
-                            Log("Read 0 byte! TcpClient close!");
+                            Log("Session close by client!");
                             return;
                         }
+                        else if (length == 3)
+                        {
+                            byte[] receivedByeBytes = new byte[length];
+                            Array.ConstrainedCopy(clientState.Buffer, 0, receivedByeBytes, 0, length);
+                            string byeMessage = this.Encoding.GetString(receivedByeBytes);
+                            if (byeMessage.ToLower().Equals("bye"))
+                            {
+                                //如果接收到bye字符则关闭连接
+                                lock (m_sessionList)
+                                {
+                                    m_sessionList.Remove(session);
+                                }
+
+                                OnSessionClosed(session);
+                                session.TcpClient.Close();
+
+                                Log("Session close by client(bye)!");
+                                return;
+                            }
+                        }
+
                         byte[] receivedBytes = new byte[length];
                         Array.ConstrainedCopy(clientState.Buffer, 0, receivedBytes, 0, length);
                         HandleDataReceived(session, receivedBytes);
