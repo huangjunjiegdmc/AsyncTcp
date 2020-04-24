@@ -102,7 +102,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AsyncTcpServer\AsyncTcp.csproj">
+    <ProjectReference Include="..\AsyncTcp\AsyncTcp.csproj">
       <Project>{987e1737-aadf-4e0b-8f33-cc89405cdd9b}</Project>
       <Name>AsyncTcp</Name>
     </ProjectReference>

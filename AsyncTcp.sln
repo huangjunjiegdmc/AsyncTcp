@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2043
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncTcp", "AsyncTcpServer\AsyncTcp.csproj", "{987E1737-AADF-4E0B-8F33-CC89405CDD9B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncTcp", "AsyncTcp\AsyncTcp.csproj", "{987E1737-AADF-4E0B-8F33-CC89405CDD9B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncTcpServerTest", "AsyncTcpServerTest\AsyncTcpServerTest.csproj", "{E850B81B-9310-4E34-A1AD-ACFF38495790}"
 EndProject
