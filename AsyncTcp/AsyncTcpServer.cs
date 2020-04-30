@@ -275,8 +275,15 @@ namespace AsyncTcp
 
                     byte[] buffer = new byte[BUFFER_SIZE];
                     ClientState clientState = new ClientState(serverSession, buffer);
-                    client.GetStream().BeginRead(clientState.Buffer, 0, BUFFER_SIZE,
-                        ReceiveCallback, clientState);
+                    try
+                    {
+                        client.GetStream().BeginRead(clientState.Buffer, 0, BUFFER_SIZE,
+                            ReceiveCallback, clientState);
+                    }
+                    catch (Exception ex)
+                    {
+                        Log(ex.Message, ex);
+                    }
 
                     tcpListener.BeginAcceptTcpClient(new AsyncCallback(HandleTcpClientAccepted), ar.AsyncState);
                 }
