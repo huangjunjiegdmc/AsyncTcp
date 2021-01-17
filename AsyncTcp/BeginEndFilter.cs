@@ -15,11 +15,11 @@ namespace AsyncTcp
         /// 开始标志：垂直制表符的ASCII码为11
         /// </summary>
         private byte[] m_beginMark = new byte[] { (byte)((char)11) };
-        
+
         /// <summary>
         /// 结束标记：文件分割符的ASCII码为28，回车符的ASCII码为13
         /// </summary>
-        public byte[] m_endMark = new byte[] { (byte)((char)28), (byte)((char)13) };
+        private byte[] m_endMark = new byte[] { (byte)((char)28), (byte)((char)13) };
         
         /// <summary>
         /// 下一个过滤器：当一个消息未接收完整，继续时使用上一个过滤器接收的缓存消息，再接收后续数据
