@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>AsyncTcpEx</id>
+    <version>1.0.0</version>
+    <title>AsyncTcp</title>
+    <authors>junjie</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <projectUrl>https://github.com/huangjunjiegdmc/AsyncTcp</projectUrl>
+    <description>异步TCP服务器，异步TCP客户端。支持自定义通信协议，已实现的通信协议：开始标志-数据-结束标志、开始标志-数据长度-数据-校验码。</description>
+    <copyright>Copyright by junjie (c)2020-2021</copyright>
+    <tags>tcp-server tcp-client asynctcp socket</tags>
+	<dependencies>
+      <group targetFramework=".NETFramework4.5" />
+    </dependencies>
+    <frameworkReferences>
+      <group targetFramework=".NETFramework4.5">
+        <frameworkReference name=".NETFramework4.5" />
+      </group>
+    </frameworkReferences>
+  </metadata>
+</package>
