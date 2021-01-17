@@ -45,5 +45,5 @@
 
 ​	**具体实现可参考已有的两个通信协议：**
 
-1. AsyncTcp/AsyncTcpServer/BeginEndFilter.cs
-2. AsyncTcp/AsyncTcpServer/BeginDataLenVerifyFilter.cs。
+1. [AsyncTcp/AsyncTcpServer/BeginEndFilter.cs](https://github.com/huangjunjiegdmc/AsyncTcp/blob/master/AsyncTcp/BeginEndFilter.cs)
+2. [AsyncTcp/AsyncTcpServer/BeginDataLenVerifyFilter.cs](https://github.com/huangjunjiegdmc/AsyncTcp/blob/master/AsyncTcp/BeginDataLenVerifyFilter.cs)
