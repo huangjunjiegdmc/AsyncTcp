@@ -41,6 +41,21 @@
 
 #### 引用说明：
 
+​	packages.config
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<packages>
+  <package id="AsyncTcpEx" version="1.0.0.2" targetFramework="net45" />
+</packages>
+```
+
+​	PackageReference
+
+```xml
+<PackageReference Include="AsyncTcpEx" Version="1.0.0.2" />
+```
+
 ​	引用该库后也可以自定义自己的通信协议，继承IReceiveDataFilter即可，实现思路其实也是参考了supersocket的思路，只是搞不清楚他的数据过虑器该怎么实现。
 
 ​	**具体实现可参考已有的两个通信协议：**
