@@ -7,7 +7,7 @@
 
 
 
-#### 目前已实现的通信协议：
+#### 目前已实现的通信协议
 
 1. 开始标志-数据-结束标志
 
@@ -36,24 +36,24 @@
    数据长度：4个字节，包含整个消息结构长度：开始标志、数据长度、消息体、校验码构成的字节长度。
 
    效验码：一个字节，这个版本的校验码只是简单的对消息体字节数组中每个字节“异或”操作后的结果，自定义的版本可以替换为任何想要的方法。
-
+   
    
 
-#### 引用说明：
 
-​	packages.config
+#### 依赖项
 
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<packages>
-  <package id="AsyncTcpEx" version="1.0.0.2" targetFramework="net45" />
-</packages>
+​	AsyncTcp当前支持的.NET Framework版本是4.5。
+
+
+
+
+#### 引用说明
+
+​	最简单的引用方式就是直接使用[NuGet package 'AsyncTcpEx'](https://www.nuget.org/packages/AsyncTcpEx/):
+
+​	如果是使用Visual Studio的包管理器控制台，则直接运行以下命令：
 ```
-
-​	PackageReference
-
-```xml
-<PackageReference Include="AsyncTcpEx" Version="1.0.0.2" />
+PM > Install-Package AsyncTcpEx -Version 1.0.0.2
 ```
 
 ​	引用该库后也可以自定义自己的通信协议，继承IReceiveDataFilter即可，实现思路其实也是参考了supersocket的思路，只是搞不清楚他的数据过虑器该怎么实现。
